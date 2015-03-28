@@ -1,0 +1,23 @@
+---
+title: "VisualR_2"
+author: "F.J. Padt"
+date: "Saturday, March 28, 2015"
+output: html_document
+---
+
+```{r}
+require(graphics)
+
+M <- as.table( 
+  cbind( c( 18,28,14), 
+         c( 20,51,28) , 
+         c( 12,25,9))) 
+dimnames(M) <- list( Husband = c(" Tall", "Medium", "Short"), 
+                     Wife = c(" Tall"," Medium", "Short"))
+
+assocplot( M, col = c(" green", "red"))
+
+# Lewis, N.D. (2014-02-02). Visualizing Complex Data Using R (p. 17).  . Kindle Edition. 
+
+```
+
