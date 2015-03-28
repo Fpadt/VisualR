@@ -15,7 +15,9 @@ M <- as.table(
 dimnames(M) <- list( Husband = c(" Tall", "Medium", "Short"), 
                      Wife = c(" Tall"," Medium", "Short"))
 
+assocplot( M, col = c(" green", "red"))
 
+# Lewis, N.D. (2014-02-02). Visualizing Complex Data Using R (p. 17).  . Kindle Edition. 
 
 ```
 
