@@ -2,22 +2,128 @@
 title: "VisualR_2"
 author: "F.J. Padt"
 date: "Saturday, March 28, 2015"
-output: html_document
+output: word_document
 ---
 
 ```{r}
 require(graphics)
 
-M <- as.table( 
-  cbind( c( 18,28,14), 
-         c( 20,51,28) , 
-         c( 12,25,9))) 
-dimnames(M) <- list( Husband = c(" Tall", "Medium", "Short"), 
-                     Wife = c(" Tall"," Medium", "Short"))
+M <- as.table(cbind(c(18, 28, 14), c(20, 51, 28), c(12, 25, 9))) 
+dimnames(M) <- list( Husband = c("Tall", "Medium", "Short"), 
+                     Wife    = c("Tall"," Medium", "Short"))
 
-assocplot( M, col = c(" green", "red"))
+assocplot(M, col = c("green", "red"))
 
-# Lewis, N.D. (2014-02-02). Visualizing Complex Data Using R (p. 17).  . Kindle Edition. 
+```
+
+
+```{r}
+library(vcd)
+assoc(M)
+ 
+```
+
+```{r Spline}
+require(graphics)
+# Clean and prepare the data 
+r1 <- c(7.9 , 67.6, 28.3, 53.6) 
+r2 <- c(4.4 , 54.5, 29.9, 57.6) 
+r3 <- c(10.2, 50  , 27.7, 53.4) 
+r4 <- c(2.5 , 35.3, 22.2, 47) 
+r5 <- c(8.5 , 46.3, 32.2, 50) 
+
+data <- as.table(rbind(r1, r2, r3, r4, r5)) 
+dimnames(data) <- list( 
+  Town = c(" Sheffield"," Warrington", "Dewsbury"," Leicester"," Gloucester"),
+  Vaccinated = c(" Yes (< 10)"," No (< 10)", "Yes (> 10)"," No (> 10)")) 
+
+#Step 3: Plot the chart 
+spineplot(data)
+spineplot(data, col = c("darkred", "orange", "darkgreen", "yellow1"))
+
+#step4: Mosaic Plot
+mosaicplot(data, color = 1:4)
+mosaicplot(data, color = 1:4, las = 1)
+ 
+```
+
+## Quick reference R code
+
+### Figure 5.1 Box plot of the effect of Vitamin C on tooth growth
+
+Lewis, N.D. (2014-02-02). Visualizing Complex Data Using R (p. 25).  . Kindle Edition. 
+
+```{r 5.1}
+data( ToothGrowth) 
+boxplot(len ~ dose, data = ToothGrowth, 
+        boxwex = 0.25, at = 1: 3 - 0.2, 
+        subset = supp == "VC", col = "red", 
+        xlab   = "Vitamin C dose mg", ylab = "Tooth length", 
+        xlim   = c(0.5, 3.5), ylim = c(0, 35), yaxs = "i") 
+
+boxplot(len ~ dose, data = ToothGrowth, 
+        add    = TRUE, boxwex = 0.25, at = 1:3 + 0.2, 
+        subset = supp == "OJ", col = "cyan") 
+
+legend(2, 9, 
+       c("Ascorbic acid (VC)", "Orange Juice Group (OJ)"), 
+       fill = c("red", "cyan"))
+
+```
+
+### Figure 5.2 2d contour plot of the effect of Vitamin C on tooth growth
+
+Lewis, N.D. (2014-02-02). Visualizing Complex Data Using R (p. 26).  . Kindle Edition. 
+
+```{r 5.2}
+require(reshape) 
+require(extracat) 
+
+data(ToothGrowth) 
+boxplot2g(ToothGrowth$dose, ToothGrowth$len, ToothGrowth$sup)
+
+```
+
+### Figure 5.3 2d contour plot of Iris data
+
+Lewis, N.D. (2014-02-02). Visualizing Complex Data Using R (p. 26).  . Kindle Edition. 
+```{r 5.3}
+# install.packages("extracat") 
+require(extracat) 
+
+boxplot2g(iris$Sepal.Length, iris$Sepal.Width, iris$Species)
+
+```
+
+### Figure 5.4 relationship between tips and total bill given group size 
+
+Lewis, N.D. (2014-02-02). Visualizing Complex Data Using R (p. 26).  . Kindle Edition. 
+
+```{r 5.4}
+# install.packages("extracat")
+# install.packages("reshape") 
+
+require(extracat) 
+require(reshape) 
+
+data(tips) 
+boxplot2g(tips$total_bill, tips$tip, tips$size)
+
+```
+
+### Figure 5‑5 relationship between tips and total bill given day of week
+
+Lewis, N.D. (2014-02-02). Visualizing Complex Data Using R (pp. 26-27).  . Kindle Edition. 
+
+```{r 5.5}
+# install.packages("extracat")
+# install.packages("reshape") 
+
+require(extracat) 
+require(reshape) 
+
+data(tips) 
+boxplot2g(tips$total_bill, tips$tip, tips$day)
 
 ```
 
