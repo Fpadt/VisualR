@@ -6,7 +6,7 @@ output: word_document
 ---
 
 ```{r}
-
+# it seems to work now
 
 require(graphics)
 
